@@ -45,6 +45,14 @@
         <div class="w-[85vw] max-w-md flex-shrink-0 snap-center relative">
           <app-payer [payer]="payer"></app-payer>
         </div>
+        } @empty {
+        <div
+          data-testid="empty-payers"
+          class="w-full flex items-center justify-center gap-2 p-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl border border-gray-200"
+        >
+          <span class="material-icons text-gray-400" style="font-size: 20px">group_add</span>
+          <p class="text-sm text-gray-500 font-medium">No payers yet</p>
+        </div>
         }
       </div>
     </div>

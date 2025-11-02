@@ -1,6 +1,7 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { Spectator, createComponentFactory } from '@ngneat/spectator';
 import { FakeRoomService } from '../../../room/domain/fakes/fake-room.service';
+import { RoomList } from '../../../room/domain/models/room-list';
 import { CreateRoomUseCase } from '../../../room/domain/use-cases/create-room.use-case';
 import { DeleteRoomUseCase } from '../../../room/domain/use-cases/delete-room.use-case';
 import { GetRoomListUseCase } from '../../../room/domain/use-cases/get-room-list.use-case';
@@ -46,9 +47,9 @@ describe('HomeComponent', () => {
     getRoomListUseCase = new GetRoomListUseCase(fakeRoomService)
     deleteRoomUseCase = new DeleteRoomUseCase(fakeRoomService)
 
-    spectator = createComponent()
-    await new Promise(resolve => setTimeout(resolve, 0));
-    spectator.detectChanges()
+    await initComponent();
+
+
   });
 
   it('should display home', () => {
@@ -78,7 +79,7 @@ describe('HomeComponent', () => {
     await clickAndWait('[data-testid="create-room"]');
 
     expect(fakeRouterService.path).toEqual(`/rooms/${fakeRoomService.room.id}`)
-  });
+  })
 
   it('should delete room', async () => {
     const roomId = 'room-001'
@@ -90,6 +91,21 @@ describe('HomeComponent', () => {
     expect(fakeRoomService.deletedRoomId).toEqual(roomId)
     expect(spectator.queryAll('[data-testid="existing-room"]').length).toEqual(1)
   })
+
+  it('should display empty state when no rooms exist', async () => {
+    expect(spectator.query('[data-testid="empty-rooms"]')).toBeFalsy()
+
+    fakeRoomService.roomList = new RoomList([])
+    await initComponent()
+
+    expect(spectator.query('[data-testid="empty-rooms"]')).toBeTruthy()
+  })
+
+  async function initComponent() {
+    spectator = createComponent();
+    await new Promise(resolve => setTimeout(resolve, 0));
+    spectator.detectChanges();
+  }
 
   async function clickAndWait(selector: string) {
     spectator.click(selector);

@@ -4,8 +4,10 @@ import { Pipe, PipeTransform } from '@angular/core';
     name: 'amount'
 })
 export class AmountPipe implements PipeTransform {
-    transform(value?: number): string {
-        if (!value) return '';
+    transform(value: number | undefined): string {
+        if (!value) {
+            return '0.00';
+        }
         return value.toFixed(2);
     }
 }

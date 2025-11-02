@@ -39,6 +39,14 @@
   <div class="space-y-2 mb-4">
     @for (expense of payer().expenses; track expense.id) {
     <app-expense [expense]="expense"></app-expense>
+    } @empty {
+    <div
+      data-testid="empty-expenses"
+      class="flex items-center justify-center gap-2 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl border border-gray-200"
+    >
+      <span class="material-icons text-gray-400" style="font-size: 20px">receipt_long</span>
+      <p class="text-sm text-gray-500 font-medium">No expenses yet</p>
+    </div>
     }
   </div>
 

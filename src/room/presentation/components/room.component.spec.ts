@@ -97,6 +97,14 @@ describe('RoomComponent', () => {
     expect(spectator.query(BalanceComponent)).toBeTruthy();
   })
 
+  it('should display empty state when room has no payers then hide it after adding payer', async () => {
+    expect(spectator.query('[data-testid="empty-payers"]')).toBeTruthy()
+
+    await clickAndWait('[data-testid="add-payer"]');
+
+    expect(spectator.query('[data-testid="empty-payers"]')).toBeFalsy()
+  })
+
   async function clickAndWait(selector: string) {
     spectator.click(selector);
     await new Promise(resolve => setTimeout(resolve, 0));

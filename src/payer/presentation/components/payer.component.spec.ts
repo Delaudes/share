@@ -91,6 +91,15 @@ describe("PayerComponent", () => {
         expect(reactiveRoomStore.getRoom()?.payers).toEqual([])
     })
 
+    it('should display empty state when payer has no expenses then hide it after adding expense', async () => {
+        expect(spectator.query('[data-testid="empty-expenses"]')).toBeTruthy()
+
+        await clickAndWait('[data-testid="add-expense"]');
+        spectator.setInput('payer', reactiveRoomStore.room()!.payers[0]);
+
+        expect(spectator.query('[data-testid="empty-expenses"]')).toBeFalsy()
+    })
+
     function provideChildrensDependencies() {
         return [
             {
