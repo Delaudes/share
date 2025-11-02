@@ -20,6 +20,19 @@
         {{ payer().calculateTotalExpenses() | amount }}
       </p>
     </div>
+    <button
+      class="w-10 h-10 flex items-center justify-center bg-white hover:bg-red-50 rounded-lg transition-all shadow-sm border border-gray-200 hover:border-red-200 group/delete hover:cursor-pointer flex-shrink-0"
+      data-testid="delete-payer"
+      (click)="deletePayer()"
+      title="Delete payer"
+    >
+      <span
+        class="material-icons text-gray-400 group-hover/delete:text-red-600 transition-colors"
+        style="font-size: 20px"
+      >
+        delete
+      </span>
+    </button>
   </div>
 
   <!-- Expenses List -->

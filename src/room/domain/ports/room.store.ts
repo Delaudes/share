@@ -10,6 +10,7 @@ export interface RoomStore {
     getRoom(): Room | undefined
     setRoom(room?: Room): void
     deleteExpense(expenseId: string): void;
+    deletePayer(payerId: string): void;
 }
 
 export const ROOM_STORE_TOKEN = new InjectionToken<ReactiveRoomStore>('RoomStore')

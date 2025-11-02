@@ -19,4 +19,12 @@ export class StoragePayerService implements PayerService {
 
         return payer
     }
+
+    async delete(payerId: string): Promise<void> {
+        const stringRooms = this.localStorageService.getItem('share')
+        const rooms = mapToRooms(stringRooms);
+
+        rooms.forEach((room) => room.deletePayer(payerId))
+        this.localStorageService.setItem('share', JSON.stringify(rooms))
+    }
 }

@@ -6,6 +6,7 @@ import { AddExpenseUseCase } from "../../../expense/domain/use-cases/add-expense
 import { DeleteExpenseUseCase } from "../../../expense/domain/use-cases/delete-expense.use-case";
 import { FakePayerService } from "../../../payer/domain/fakes/fake-payer.service";
 import { AddPayerUseCase } from "../../../payer/domain/use-cases/add-payer.use-case";
+import { DeletePayerUseCase } from "../../../payer/domain/use-cases/delete-payer.use-case";
 import { PayerComponent } from "../../../payer/presentation/components/payer.component";
 import { FakeRouterService } from "../../../router/infrastructure/adapters/fake-router.service";
 import { ROUTER_SERVICE_TOKEN } from "../../../router/infrastructure/ports/router.service";
@@ -111,6 +112,10 @@ describe('RoomComponent', () => {
       {
         provide: DeleteExpenseUseCase,
         useFactory: () => new DeleteExpenseUseCase(new FakeExpenseService(), reactiveRoomStore)
+      },
+      {
+        provide: DeletePayerUseCase,
+        useFactory: () => new DeletePayerUseCase(fakePayerService, reactiveRoomStore)
       }]
   }
 });

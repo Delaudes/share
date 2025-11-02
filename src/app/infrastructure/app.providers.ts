@@ -6,6 +6,7 @@ import { RealLocalStorageService } from "../../local-storage/infrastructure/adap
 import { LOCAL_STORAGE_SERVICE_TOKEN } from "../../local-storage/infrastructure/ports/local-storage.service";
 import { PAYER_SERVICE_TOKEN } from "../../payer/domain/ports/payer.service";
 import { AddPayerUseCase } from "../../payer/domain/use-cases/add-payer.use-case";
+import { DeletePayerUseCase } from "../../payer/domain/use-cases/delete-payer.use-case";
 import { StoragePayerService } from "../../payer/infrastructure/adapters/services/storage-payer.service";
 import { ROOM_SERVICE_TOKEN } from "../../room/domain/ports/room.service";
 import { ROOM_STORE_TOKEN } from "../../room/domain/ports/room.store";
@@ -79,6 +80,10 @@ export const PAYER_PROVIDERS = [
     },
     {
         provide: AddPayerUseCase,
+        deps: [PAYER_SERVICE_TOKEN, ROOM_STORE_TOKEN]
+    },
+    {
+        provide: DeletePayerUseCase,
         deps: [PAYER_SERVICE_TOKEN, ROOM_STORE_TOKEN]
     },
 ]

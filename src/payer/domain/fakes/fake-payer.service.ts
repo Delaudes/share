@@ -4,6 +4,7 @@ import { PayerService } from "../ports/payer.service";
 export class FakePayerService implements PayerService {
     roomId?: string
     payerName?: string
+    payerId?: string
 
     payer = new Payer('payer-001', 'John', [])
 
@@ -12,5 +13,9 @@ export class FakePayerService implements PayerService {
         this.payerName = payerName
 
         return this.payer
+    }
+
+    async delete(payerId: string): Promise<void> {
+        this.payerId = payerId
     }
 }

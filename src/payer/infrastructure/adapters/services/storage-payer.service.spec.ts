@@ -25,4 +25,13 @@ describe('StoragePayerService', () => {
         expect(fakeLocalStorageService.key).toEqual('share')
         expect(fakeLocalStorageService.newItem).toEqual(`[{"id":"${roomId}","name":"Roomate","payers":[{"id":"payer-001","name":"Alice","expenses":[{"id":"expense-001","name":"Groceries","amount":50}]},{"id":"${fakeUuidService.uuid}","name":"${payerName}","expenses":[]}]}]`)
     })
+
+    it('should delete payer from storage', async () => {
+        const payerId = 'payer-001'
+
+        await storagePayerService.delete(payerId)
+
+        expect(fakeLocalStorageService.key).toEqual('share')
+        expect(fakeLocalStorageService.newItem).not.toContain(payerId)
+    })
 })

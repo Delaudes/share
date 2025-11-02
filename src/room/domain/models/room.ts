@@ -29,6 +29,13 @@ export class Room {
         return new Room(this.id, this.name, this.payers)
     }
 
+    deletePayer(payerId: string): Room {
+        const index = this.payers.findIndex((payer) => payer.is(payerId))
+        if (index === -1) return this
+        this.payers.splice(index, 1)
+        return new Room(this.id, this.name, this.payers)
+    }
+
     calculateBalance(): Balance {
         const balance = new Balance([])
         const averageExpenses = this.calculateAverageExpensesPerPayer()

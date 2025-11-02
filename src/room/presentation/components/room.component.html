@@ -44,28 +44,6 @@
         $last) {
         <div class="w-[85vw] max-w-md flex-shrink-0 snap-center relative">
           <app-payer [payer]="payer"></app-payer>
-
-          <!-- Left Chevron -->
-          @if (!isFirst && roomStore.room()!.payers.length > 1) {
-          <div class="absolute left-0 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
-            <span
-              class="material-icons text-cyan-600 animate-bounce drop-shadow-lg"
-              style="font-size: 24px"
-              >chevron_left</span
-            >
-          </div>
-          }
-
-          <!-- Right Chevron -->
-          @if (!isLast && roomStore.room()!.payers.length > 1) {
-          <div class="absolute right-0 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
-            <span
-              class="material-icons text-cyan-600 animate-bounce drop-shadow-lg"
-              style="font-size: 24px"
-              >chevron_right</span
-            >
-          </div>
-          }
         </div>
         }
       </div>
