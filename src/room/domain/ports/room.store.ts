@@ -11,6 +11,7 @@ export interface RoomStore {
     setRoom(room?: Room): void
     deleteExpense(expenseId: string): void;
     deletePayer(payerId: string): void;
+    settleBalance(): void;
 }
 
 export const ROOM_STORE_TOKEN = new InjectionToken<ReactiveRoomStore>('RoomStore')

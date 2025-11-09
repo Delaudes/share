@@ -1,5 +1,7 @@
 import { provideZonelessChangeDetection } from "@angular/core";
 import { createComponentFactory, Spectator } from "@ngneat/spectator";
+import { FakeBalanceService } from "../../../balance/domain/fakes/fake-balance.service";
+import { SettleBalanceUseCase } from "../../../balance/domain/use-cases/settle-balance.use-case";
 import { BalanceComponent } from "../../../balance/presentation/components/balance.component";
 import { FakeExpenseService } from "../../../expense/domain/fakes/fake-expense.service";
 import { AddExpenseUseCase } from "../../../expense/domain/use-cases/add-expense.use-case";
@@ -15,7 +17,6 @@ import { ROOM_STORE_TOKEN } from "../../domain/ports/room.store";
 import { LoadRoomUseCase } from "../../domain/use-cases/load-room.use-case";
 import { ReactiveRoomStore } from "../../infrastructure/adapters/stores/reactive-room.store";
 import { RoomComponent } from "./room.component";
-
 
 describe('RoomComponent', () => {
   let spectator: Spectator<RoomComponent>;
@@ -124,6 +125,10 @@ describe('RoomComponent', () => {
       {
         provide: DeletePayerUseCase,
         useFactory: () => new DeletePayerUseCase(fakePayerService, reactiveRoomStore)
+      },
+      {
+        provide: SettleBalanceUseCase,
+        useFactory: () => new SettleBalanceUseCase(new FakeBalanceService(), reactiveRoomStore)
       }]
   }
 });

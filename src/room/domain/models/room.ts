@@ -1,5 +1,5 @@
-import { Balance } from "../../../balance/models/balence"
-import { Payment } from "../../../balance/models/payment"
+import { Balance } from "../../../balance/domain/models/balence"
+import { Payment } from "../../../balance/domain/models/payment"
 import { Expense } from "../../../expense/domain/models/expense"
 import { Payer } from "../../../payer/domain/models/payer"
 
@@ -36,6 +36,11 @@ export class Room {
         return new Room(this.id, this.name, this.payers)
     }
 
+    settleBalance(): Room {
+        const clearedPayers = this.payers.map(payer => payer.clearExpenses());
+        return new Room(this.id, this.name, clearedPayers);
+    }
+
     calculateBalance(): Balance {
         const balance = new Balance([])
         const averageExpenses = this.calculateAverageExpensesPerPayer()
@@ -46,7 +51,9 @@ export class Room {
             const difference = payer.calculateDifference(averageExpenses)
             if (difference < 0) {
                 payersOwing.push({ payer, amount: -difference })
-            } else if (difference > 0) {
+                return
+            }
+            if (difference > 0) {
                 payersReceiving.push({ payer, amount: difference })
             }
         })

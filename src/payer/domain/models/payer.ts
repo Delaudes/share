@@ -26,4 +26,8 @@ export class Payer {
     calculateDifference(averageExpenses: number): number {
         return this.calculateTotalExpenses() - averageExpenses
     }
+
+    clearExpenses(): Payer {
+        return new Payer(this.id, this.name, [])
+    }
 }

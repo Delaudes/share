@@ -30,4 +30,8 @@ export class FakeRoomStore implements RoomStore {
     deletePayer(payerId: string): void {
         this.room?.deletePayer(payerId)
     }
+
+    settleBalance(): void {
+        this.room = this.room?.settleBalance();
+    }
 }

@@ -1,3 +1,6 @@
+import { BALANCE_SERVICE_TOKEN } from "../../balance/domain/ports/balance.service";
+import { SettleBalanceUseCase } from "../../balance/domain/use-cases/settle-balance.use-case";
+import { StorageBalanceService } from "../../balance/infrastructure/adapters/services/storage-balance.service";
 import { EXPENSE_SERVICE_TOKEN } from "../../expense/domain/ports/expense.service";
 import { AddExpenseUseCase } from "../../expense/domain/use-cases/add-expense.use-case";
 import { DeleteExpenseUseCase } from "../../expense/domain/use-cases/delete-expense.use-case";
@@ -102,6 +105,18 @@ export const EXPENSE_PROVIDERS = [
         provide: DeleteExpenseUseCase,
         deps: [EXPENSE_SERVICE_TOKEN, ROOM_STORE_TOKEN]
 
+    }
+]
+
+export const BALANCE_PROVIDERS = [
+    {
+        provide: BALANCE_SERVICE_TOKEN,
+        useClass: StorageBalanceService,
+        deps: [LOCAL_STORAGE_SERVICE_TOKEN]
+    },
+    {
+        provide: SettleBalanceUseCase,
+        deps: [BALANCE_SERVICE_TOKEN, ROOM_STORE_TOKEN]
     }
 ]
 
