@@ -1,2 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'tailwindcss';
+
+@layer base {
+  :root {
+    /* Spacing */
+    --spacing-card: 1.25rem; /* 5 */
+    --spacing-section: 2rem; /* 8 */
+
+    /* Border radius */
+    --radius-sm: 0.5rem; /* 8px */
+    --radius-md: 0.75rem; /* 12px */
+    --radius-lg: 1rem; /* 16px */
+    --radius-xl: 1.5rem; /* 24px */
+
+    /* Icon sizes */
+    --icon-sm: 18px;
+    --icon-md: 24px;
+    --icon-lg: 32px;
+  }
+}

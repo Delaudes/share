@@ -15,6 +15,7 @@ import { ROUTER_SERVICE_TOKEN } from "../../../router/infrastructure/ports/route
 import { FakeRoomService } from "../../domain/fakes/fake-room.service";
 import { ROOM_STORE_TOKEN } from "../../domain/ports/room.store";
 import { LoadRoomUseCase } from "../../domain/use-cases/load-room.use-case";
+import { UpdateRoomNameUseCase } from "../../domain/use-cases/update-room-name.use-case";
 import { ReactiveRoomStore } from "../../infrastructure/adapters/stores/reactive-room.store";
 import { RoomComponent } from "./room.component";
 
@@ -27,6 +28,7 @@ describe('RoomComponent', () => {
   let reactiveRoomStore: ReactiveRoomStore
   let loadRoomUseCase: LoadRoomUseCase
   let addPayerUseCase: AddPayerUseCase
+  let updateRoomNameUseCase: UpdateRoomNameUseCase
 
   const createComponent = createComponentFactory({
     component: RoomComponent,
@@ -44,6 +46,10 @@ describe('RoomComponent', () => {
       useFactory: () => addPayerUseCase
     },
     {
+      provide: UpdateRoomNameUseCase,
+      useFactory: () => updateRoomNameUseCase
+    },
+    {
       provide: ROOM_STORE_TOKEN,
       useFactory: () => reactiveRoomStore
     },
@@ -58,6 +64,7 @@ describe('RoomComponent', () => {
     reactiveRoomStore = new ReactiveRoomStore()
     loadRoomUseCase = new LoadRoomUseCase(fakeRoomService, reactiveRoomStore)
     addPayerUseCase = new AddPayerUseCase(fakePayerService, reactiveRoomStore)
+    updateRoomNameUseCase = new UpdateRoomNameUseCase(fakeRoomService, reactiveRoomStore)
 
     spectator = createComponent()
     await new Promise(resolve => setTimeout(resolve, 0));
@@ -67,6 +74,27 @@ describe('RoomComponent', () => {
   it('should display room', () => {
     expect(spectator.query('[data-testid="room"]')).toHaveText(reactiveRoomStore.room()!.name)
   })
+
+  describe('room editing', () => {
+    const newName = 'Summer Trip';
+
+    beforeEach(async () => {
+      await clickAndWait('[data-testid="edit-room-name"]');
+      spectator.typeInElement(newName, '[data-testid="room-name-input"]');
+    });
+
+    it('should edit room name', async () => {
+      await clickAndWait('[data-testid="save-room-name"]');
+
+      expect(spectator.query('[data-testid="room"]')).toHaveText(newName)
+    });
+
+    it('should cancel room name editing', async () => {
+      await clickAndWait('[data-testid="cancel-edit-room-name"]');
+
+      expect(spectator.query('[data-testid="room"]')).not.toHaveText(newName)
+    });
+  });
 
   it('should load room', async () => {
     expect(fakeRouterService.paramName).toEqual('id')
