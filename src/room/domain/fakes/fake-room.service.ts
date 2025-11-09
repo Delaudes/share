@@ -10,6 +10,8 @@ export class FakeRoomService implements RoomService {
     createdRoomId?: string
     roomName?: string
     deletedRoomId?: string
+    updatedRoomId?: string
+    updatedRoomName?: string
 
     async create(roomName: string): Promise<Room> {
         this.roomName = roomName
@@ -30,5 +32,10 @@ export class FakeRoomService implements RoomService {
 
     async delete(roomId: string): Promise<void> {
         this.deletedRoomId = roomId
+    }
+
+    async updateName(roomId: string, newName: string): Promise<void> {
+        this.updatedRoomId = roomId;
+        this.updatedRoomName = newName;
     }
 }

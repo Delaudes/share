@@ -40,4 +40,9 @@ export class ReactiveRoomStore implements RoomStore {
         const newRoom = this.room()?.settleBalance();
         this.setRoom(newRoom);
     }
+
+    updateName(newName: string): void {
+        const newRoom = this.room()?.updateName(newName);
+        this.setRoom(newRoom);
+    }
 }

@@ -36,6 +36,10 @@ export class Room {
         return new Room(this.id, this.name, this.payers)
     }
 
+    updateName(newName: string): Room {
+        return new Room(this.id, newName, this.payers);
+    }
+
     settleBalance(): Room {
         const clearedPayers = this.payers.map(payer => payer.clearExpenses());
         return new Room(this.id, this.name, clearedPayers);

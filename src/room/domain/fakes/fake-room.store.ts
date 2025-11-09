@@ -34,4 +34,8 @@ export class FakeRoomStore implements RoomStore {
     settleBalance(): void {
         this.room = this.room?.settleBalance();
     }
+
+    updateName(newName: string): void {
+        this.room = this.room?.updateName(newName);
+    }
 }

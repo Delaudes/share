@@ -75,4 +75,13 @@ describe('StorageRoomService', () => {
         expect(fakeLocalStorageService.newItem).toEqual('[]')
     })
 
+    it('should update room name in storage', async () => {
+        const roomId = 'room-002'
+        const newName = 'Summer Trip'
+
+        await storageRoomService.updateName(roomId, newName)
+
+        expect(fakeLocalStorageService.key).toEqual('share')
+        expect(fakeLocalStorageService.newItem).toEqual(`[{"id":"${roomId}","name":"${newName}","payers":[{"id":"payer-001","name":"Alice","expenses":[{"id":"expense-001","name":"Groceries","amount":50}]}]}]`)
+    });
 })

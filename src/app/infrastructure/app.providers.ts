@@ -17,6 +17,7 @@ import { CreateRoomUseCase } from "../../room/domain/use-cases/create-room.use-c
 import { DeleteRoomUseCase } from "../../room/domain/use-cases/delete-room.use-case";
 import { GetRoomListUseCase } from "../../room/domain/use-cases/get-room-list.use-case";
 import { LoadRoomUseCase } from "../../room/domain/use-cases/load-room.use-case";
+import { UpdateRoomNameUseCase } from "../../room/domain/use-cases/update-room-name.use-case";
 import { StorageRoomService } from "../../room/infrastructure/adapters/services/storage-room.service";
 import { ReactiveRoomStore } from "../../room/infrastructure/adapters/stores/reactive-room.store";
 import { AngularRouterService } from "../../router/infrastructure/adapters/angular-router.service";
@@ -72,6 +73,10 @@ export const ROOM_PROVIDERS = [
     {
         provide: DeleteRoomUseCase,
         deps: [ROOM_SERVICE_TOKEN]
+    },
+    {
+        provide: UpdateRoomNameUseCase,
+        deps: [ROOM_SERVICE_TOKEN, ROOM_STORE_TOKEN]
     },
 ]
 

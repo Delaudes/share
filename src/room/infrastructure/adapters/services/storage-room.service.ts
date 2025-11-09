@@ -41,4 +41,15 @@ export class StorageRoomService implements RoomService {
         const filteredRooms = rooms.filter((room) => !room.is(roomId))
         this.localStorageService.setItem('share', JSON.stringify(filteredRooms))
     }
+
+    async updateName(roomId: string, newName: string): Promise<void> {
+        const stringRooms = this.localStorageService.getItem('share');
+        const rooms = mapToRooms(stringRooms);
+
+        const updatedRooms = rooms.map((room) =>
+            room.is(roomId) ? room.updateName(newName) : room
+        );
+
+        this.localStorageService.setItem('share', JSON.stringify(updatedRooms));
+    }
 }
